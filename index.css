@@ -775,7 +775,7 @@ textarea:focus{
 }
 
 @media (max-width: 617px){
-    .portfolio-container{
+    .certificate-container{
         grid-template-columns: 1fr;
     }
 
