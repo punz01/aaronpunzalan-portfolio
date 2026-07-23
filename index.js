@@ -160,6 +160,15 @@ const galleryData = {
     "img/water2.jpg",
     "img/water3.jpg",
   ],
+
+  project11: [
+    "img/pay1.jpg",
+    "img/pay2.jpg",
+    "img/pay3.jpg",
+    "img/pay4.jpg",
+    "img/pay5.jpg",
+    "img/pay6.jpg",
+  ],
 };
 
 let currentImages = [];
