@@ -148,6 +148,18 @@ const galleryData = {
     "img/bpoc12.jpg",
     
   ],
+
+  project9: [
+    "img/noti1.jpg",
+    "img/noti2.jpg",
+    "img/noti3.jpg",
+  ],
+
+  project10: [
+    "img/water1.jpg",
+    "img/water2.jpg",
+    "img/water3.jpg",
+  ],
 };
 
 let currentImages = [];
