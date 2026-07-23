@@ -58,7 +58,7 @@ if (typeof ScrollReveal !== 'undefined') {
 /*------------TYPED JS------------*/
 if (typeof Typed !== 'undefined') {
   const typed = new Typed('.multiple-text', {
-    strings: ['Web Developer', 'UI/UX Designer', 'Web Designer'],
+    strings: ['Web Developer', 'Software Developer', 'AI Enthusiast'],
     typeSpeed: 70,
     backSpeed: 70,
     backDelay: 1000,
