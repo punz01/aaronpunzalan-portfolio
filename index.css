@@ -122,14 +122,6 @@ ul {
   margin-bottom: 0.75rem;
 }
 
-.eyebrow::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: hsl(var(--primary));
-}
-
 .section-title {
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 800;
