@@ -1,3 +1,26 @@
+/*------------THEME TOGGLE------------*/
+
+const themeToggle = document.querySelector('#theme-toggle');
+const root = document.documentElement;
+
+function setThemeIcon() {
+  if (!themeToggle) return;
+  const icon = themeToggle.querySelector('i');
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+}
+
+if (themeToggle) {
+  setThemeIcon();
+  themeToggle.onclick = () => {
+    const current = root.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    setThemeIcon();
+  };
+}
+
 /*------------TOGGLE ICON NAVBAR------------*/
 
 let menuIcon = document.querySelector('#menu-icon');
@@ -6,16 +29,17 @@ let navbar = document.querySelector('.navbar');
 if (menuIcon) {
   menuIcon.onclick = () => {
     menuIcon.classList.toggle('fa-xmark');
-    navbar.classList.toggle('active')
+    navbar.classList.toggle('active');
   }
 }
 
-/*------------SCROLL SECTION ACTIVE LINK------------*/
+/*------------SCROLL SECTION ACTIVE LINK + STICKY HEADER------------*/
 
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
+let header = document.querySelector('header');
 
-window.onscroll = () => {
+window.addEventListener('scroll', () => {
   sections.forEach(sec => {
     let top = window.scrollY;
     let offset = sec.offsetTop - 150;
@@ -28,31 +52,32 @@ window.onscroll = () => {
         let target = document.querySelector('header nav a[href*=' + id + ']');
         if (target) target.classList.add('active');
       });
-    };
+    }
   });
 
-  /*------------STICKY NAVBAR------------*/
+  if (header) header.classList.toggle('sticky', window.scrollY > 60);
 
-  let header = document.querySelector('header');
-  if (header) header.classList.toggle('sticky', window.scrollY > 100);
-
-  /*------------REMOVE TOGGLE ICON AND NAVBAR------------*/
   if (menuIcon) menuIcon.classList.remove('fa-xmark');
   if (navbar) navbar.classList.remove('active');
-};
+});
 
-/*------------SCROLL REVEAL------------*/
-if (typeof ScrollReveal !== 'undefined') {
-  ScrollReveal({
-    distance: '80px',
-    duration: 2000,
-    delay: 200,
-  });
+/*------------SCROLL REVEAL (vanilla IntersectionObserver)------------*/
 
-  ScrollReveal().reveal('.me-container, heading', { origin: 'top' });
-  ScrollReveal().reveal('.me-img, .cells, .work-card, .certificate-container, .contact form', { origin: 'bottom' });
-  ScrollReveal().reveal('.home-content h1, .about-img', { origin: 'left' });
-  ScrollReveal().reveal('.home-content h3, .about-content', { origin: 'right' });
+const revealEls = document.querySelectorAll('.reveal');
+
+if ('IntersectionObserver' in window && revealEls.length) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+} else {
+  revealEls.forEach(el => el.classList.add('in-view'));
 }
 
 /*------------TYPED JS------------*/
@@ -66,108 +91,47 @@ if (typeof Typed !== 'undefined') {
   });
 }
 
+/*------------PROJECT GALLERY DATA------------*/
 
 const galleryData = {
   project1: [
-    "img/is1.jpg",
-    "img/is2.jpg",
-    "img/is3.jpg",
-    "img/is4.jpg",
-    "img/is5.jpg",
-    "img/is6.jpg",
-    "img/is7.jpg",
-    "img/is8.jpg",
-    "img/is9.jpg",
+    "img/is1.jpg", "img/is2.jpg", "img/is3.jpg", "img/is4.jpg", "img/is5.jpg",
+    "img/is6.jpg", "img/is7.jpg", "img/is8.jpg", "img/is9.jpg",
   ],
   project2: [
-    "img/pms1.jpg",
-    "img/pms2.jpg",
-    "img/pms3.jpg",
-    "img/pms4.jpg",
-    "img/pms5.jpg",
+    "img/pms1.jpg", "img/pms2.jpg", "img/pms3.jpg", "img/pms4.jpg", "img/pms5.jpg",
   ],
   project3: [
-    "img/obj1.jpg",
-    "img/obj2.jpg",
-    "img/obj3.jpg",
-    "img/obj4.jpg",
-    "img/obj5.jpg",
-    "img/obj6.jpg",
-    "img/obj7.jpg",
-    "img/obj8.jpg",
-    "img/obj9.jpg",
-    "img/obj10.jpg",
-    "img/obj11.jpg",
-    "img/obj12.jpg",
+    "img/obj1.jpg", "img/obj2.jpg", "img/obj3.jpg", "img/obj4.jpg", "img/obj5.jpg",
+    "img/obj6.jpg", "img/obj7.jpg", "img/obj8.jpg", "img/obj9.jpg", "img/obj10.jpg",
+    "img/obj11.jpg", "img/obj12.jpg",
   ],
   project4: [
-    "img/shub1.jpg",
-    "img/shub2.jpg",
-    "img/shub3.jpg",
-    "img/shub4.jpg",
-    "img/shub5.jpg",
+    "img/shub1.jpg", "img/shub2.jpg", "img/shub3.jpg", "img/shub4.jpg", "img/shub5.jpg",
   ],
   project5: [
-    "img/hallyu1.jpg",
-    "img/hallyu2.jpg",
-    "img/hallyu3.jpg",
-    "img/hallyu4.jpg",
-    "img/hallyu5.jpg",
-    "img/hallyu6.jpg",
-    "img/hallyu7.jpg",
-
+    "img/hallyu1.jpg", "img/hallyu2.jpg", "img/hallyu3.jpg", "img/hallyu4.jpg",
+    "img/hallyu5.jpg", "img/hallyu6.jpg", "img/hallyu7.jpg",
   ],
   project6: [
-    "img/sole1.jpg",
-    "img/sole2.jpg",
-    "img/sole3.jpg",
-    "img/sole4.jpg",
-    "img/sole5.jpg",
-    "img/sole6.jpg",
+    "img/sole1.jpg", "img/sole2.jpg", "img/sole3.jpg", "img/sole4.jpg", "img/sole5.jpg", "img/sole6.jpg",
   ],
   project7: [
-    "img/pine1.jpg",
-    "img/pine2.jpg",
-    "img/pine3.jpg",
-    "img/pine4.jpg",
-    "img/pine5.jpg",
-    "img/pine6.jpg",
+    "img/pine1.jpg", "img/pine2.jpg", "img/pine3.jpg", "img/pine4.jpg", "img/pine5.jpg", "img/pine6.jpg",
   ],
-   project8: [
-    "img/bpoc1.jpg",
-    "img/bpoc2.jpg",
-    "img/bpoc3.jpg",
-    "img/bpoc4.jpg",
-    "img/bpoc5.jpg",
-    "img/bpoc6.jpg",
-    "img/bpoc7.jpg",
-    "img/bpoc8.jpg",
-    "img/bpoc9.jpg",
-    "img/bpoc10.jpg",
-    "img/bpoc11.jpg",
-    "img/bpoc12.jpg",
-    
+  project8: [
+    "img/bpoc1.jpg", "img/bpoc2.jpg", "img/bpoc3.jpg", "img/bpoc4.jpg", "img/bpoc5.jpg",
+    "img/bpoc6.jpg", "img/bpoc7.jpg", "img/bpoc8.jpg", "img/bpoc9.jpg", "img/bpoc10.jpg",
+    "img/bpoc11.jpg", "img/bpoc12.jpg",
   ],
-
   project9: [
-    "img/noti1.jpg",
-    "img/noti2.jpg",
-    "img/noti3.jpg",
+    "img/noti1.jpg", "img/noti2.jpg", "img/noti3.jpg",
   ],
-
   project10: [
-    "img/water1.jpg",
-    "img/water2.jpg",
-    "img/water3.jpg",
+    "img/water1.jpg", "img/water2.jpg", "img/water3.jpg",
   ],
-
   project11: [
-    "img/pay1.jpg",
-    "img/pay2.jpg",
-    "img/pay3.jpg",
-    "img/pay4.jpg",
-    "img/pay5.jpg",
-    "img/pay6.jpg",
+    "img/pay1.jpg", "img/pay2.jpg", "img/pay3.jpg", "img/pay4.jpg", "img/pay5.jpg", "img/pay6.jpg",
   ],
 };
 
@@ -182,7 +146,6 @@ function openSlider(element) {
   updateSlider();
   document.getElementById("popupSlider").style.display = "flex";
 }
-
 
 function closeSlider() {
   document.getElementById("popupSlider").style.display = "none";
@@ -208,6 +171,8 @@ function updateSlider() {
   }
 }
 
+/*------------CONTACT FORM------------*/
+
 function sendEmail() {
   const fullname = document.querySelector("#fullname").value.trim();
   const email = document.querySelector("#email").value.trim();
@@ -215,28 +180,19 @@ function sendEmail() {
   const subject = document.querySelector("#subject").value.trim();
   const message = document.querySelector("#message").value.trim();
 
-  // Check if fields are empty
   if (!fullname || !email || !number || !subject || !message) {
     alert("Please fill out all fields before sending.");
     return;
   }
 
-  // Email format validation
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     alert("Please enter a valid email address.");
     return;
   }
 
-  const templateParams = {
-    fullname,
-    email,
-    number,
-    subject,
-    message,
-  };
+  const templateParams = { fullname, email, number, subject, message };
 
-  // Send the email
   if (typeof emailjs !== 'undefined') {
     emailjs
       .send("service_34wq60a", "template_adnnam3", templateParams)
@@ -252,5 +208,3 @@ function sendEmail() {
     alert("Email service not available.");
   }
 }
-
-
