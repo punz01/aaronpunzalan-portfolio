@@ -11,14 +11,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- MAIN CSS-->
     <link rel="stylesheet" href="index.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init({
-                publicKey: "7m5MJNGxZqlQAjXzz",
-            });
-        })();
-    </script>
     <!-- Set theme before paint to avoid flash -->
     <script>
         (function () {
@@ -614,7 +606,7 @@
                 </div>
             </div>
 
-            <form action="#" class="card reveal">
+            <form id="contact-form" action="https://formspree.io/f/xkodknvq" method="POST" class="card reveal">
                 <div class="input-box">
                     <div class="field">
                         <label for="fullname">Full Name</label>
@@ -643,7 +635,7 @@
                         placeholder="Tell me about your project or opportunity..." required></textarea>
                 </div>
 
-                <button type="button" class="btn btn-primary contact-btn" onclick="sendEmail()">
+                <button type="submit" class="btn btn-primary contact-btn">
                     <i class="fa-solid fa-paper-plane"></i> Send Message
                 </button>
             </form>
